@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "home-assignment"
+  "defaultProject": "home-assignment",
+  "cli": {
+    "analytics": false
+  }
 }

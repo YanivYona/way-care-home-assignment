@@ -1,0 +1,50 @@
+<div class="home-page-wrapper">
+  <div class="list-container">
+    <div class="tabs">
+      <div
+        class="tab"
+        [ngStyle]="{ 'font-weight': showFavoriteImages ? '100' : 'bold' }"
+        (click)="toggleShowFavoriteImages(false)"
+      >
+        All Images
+      </div>
+      <div
+        class="tab"
+        [ngStyle]="{ 'font-weight': showFavoriteImages ? 'bold' : '100' }"
+        (click)="toggleShowFavoriteImages(true)"
+      >
+        Favorites
+      </div>
+    </div>
+    <div class="list">
+      <div class="loading" *ngIf="!images.length">Loading...</div>
+      <cdk-virtual-scroll-viewport
+        class="scroll-wrapper"
+        itemSize="50"
+        *ngIf="images.length"
+      >
+        <div
+          class="item"
+          *cdkVirtualFor="
+            let image of showFavoriteImages ? favoriteImages : images
+          "
+          (click)="setImage(image)"
+          (dblclick)="markAsFavorite(image)"
+        >
+          {{ image.author }}
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </div>
+  <div class="image-container">
+    <div class="metadata">
+      <div class="bullet">ID: {{ imageToShow?.id }}</div>
+      <div class="bullet">Author: {{ imageToShow?.author }}</div>
+      <div class="bullet">Width: {{ imageToShow?.width }}</div>
+      <div class="bullet">Height: {{ imageToShow?.height }}</div>
+    </div>
+    <div class="image-wrapper" *ngIf="imageToShow">
+      <img class="image" [src]="imageToShow.download_url" />
+    </div>
+  </div>
+</div>
